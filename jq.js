@@ -1,17 +1,27 @@
 document.querySelector(".foot").style.display = 'none';
 document.querySelector(".para").style.display = 'none';
-console.log("Hi");
+
+$(".button").click(function () {
+const coin = document.querySelector(".select").value;
+console.log(coin);
+const url = `https://api.coingecko.com/api/v3/coins/${coin}`;
 var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function(){
+xhttp.onload = function(){
     if(this.readyState==4 && this.status==200){
-        console.log("Inside");
-        console.log(xhttp.responseText)
-    }
-    else{
-        console.log('error')
+        var data = JSON.parse(xhttp.responseText)
+        let name = data.id;
+        let price = data.market_data.current_price.usd;
+        let rank = data.market_cap_rank;
+        document.querySelector(".foot").style.display = 'block';
+        document.querySelector(".coinprice").textContent = price;
+        document.querySelector(".coinrank").textContent = rank;
+        document.querySelector(".coinname").textContent = name;
+        document.querySelector(".para").style.display = 'block';
+        document.querySelector(".para").textContent = 'This data is as per : '+new Date().toLocaleString();
     }
 }
-xhttp.open('GET','https://api.coingecko.com/api/v3/coins/bitcoin')
+xhttp.open('GET',url)
 xhttp.send();
-console.log("Bye");
+
+})
 
