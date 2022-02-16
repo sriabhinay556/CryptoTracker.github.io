@@ -3,7 +3,6 @@ document.querySelector(".para").style.display = 'none';
 
 $(".button").click(function () {
 const coin = document.querySelector(".select").value;
-console.log(coin);
 const url = `https://api.coingecko.com/api/v3/coins/${coin}`;
 var xhttp = new XMLHttpRequest();
 xhttp.onload = function(){
